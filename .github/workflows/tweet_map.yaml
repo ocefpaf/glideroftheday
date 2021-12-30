@@ -26,7 +26,7 @@ jobs:
         run: |
           conda env create --file environment.yml --name tweet_glider
 
-      - name: Execute Notebook, publish gh-pages, and Tweet
+      - name: Execute Notebook and Tweet
         # env:
         #   TWITTER_SECRET: ${{ secrets.TWITTER_SECRET }}
         shell: bash
@@ -34,6 +34,7 @@ jobs:
           source activate tweet_glider
           jupyter nbconvert --to notebook --execute gliders_of_the_day.ipynb --output=gliders_of_the_day-output.ipynb
 
+      - name: Publish HTML
         # if: github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3.6.1
         with:
