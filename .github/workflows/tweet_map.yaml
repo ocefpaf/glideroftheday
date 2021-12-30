@@ -1,12 +1,8 @@
 name: Twitter Glider Map of the Day
 on:
-  pull_request:
-  push:
-    branches: [main]
-# on:
-#   workflow_dispatch:
-#   schedule:
-#     - cron: "0 2 * * *"
+  workflow_dispatch:
+  schedule:
+    - cron: "0 10 * * *"
 
 jobs:
   build:
@@ -16,26 +12,34 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install conda environment
+      - name: Setup Conda
         uses: s-weigand/setup-conda@v1
         with:
           activate-conda: false
           update-conda: true
           conda-channels: conda-forge
+
+      - name: Install conda environment
         shell: bash -l {0}
         run: |
           conda env create --file environment.yml --name tweet_glider
 
-      - name: Execute Notebook, publish gh-pages, and Tweet
-        # env:
-        #   TWITTER_SECRET: ${{ secrets.TWITTER_SECRET }}
+      - name: Execute Notebook and Tweet
+        env:
+          TWITTER_SECRET: ${{ secrets.TWITTER_SECRET }}
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_KEY_SECRET: ${{ secrets.CONSUMER_KEY_SECRET }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN_SECRET: ${{ secrets.ACCESS_TOKEN_SECRET }}
         shell: bash
         run: |
           source activate tweet_glider
           jupyter nbconvert --to notebook --execute gliders_of_the_day.ipynb --output=gliders_of_the_day-output.ipynb
 
-        # if: github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3.6.1
+      - name: Publish HTML
+        if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: html/
+          keep_files: true
