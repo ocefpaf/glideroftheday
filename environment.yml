@@ -1,0 +1,12 @@
+name: tweet_glider
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - erddapy
+  - folium
+  - jupyter
+  - pandas
+  - selenium
+  - shapely
+  - tweepy
