@@ -16,12 +16,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install conda environment
+      - name: Setup Conda
         uses: s-weigand/setup-conda@v1
         with:
           activate-conda: false
           update-conda: true
           conda-channels: conda-forge
+
+      - name: Install conda environment
         shell: bash -l {0}
         run: |
           conda env create --file environment.yml --name tweet_glider
