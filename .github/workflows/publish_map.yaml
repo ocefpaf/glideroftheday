@@ -1,4 +1,4 @@
-name: Twitter Glider Map of the Day
+name: Publish Glider Map of the Day
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Tweet glider map
+    name: glider map
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -19,15 +19,15 @@ jobs:
       - name: Setup Micromamba Python ${{ matrix.python-version }}
         uses: mamba-org/setup-micromamba@v1
         with:
-          environment-name: tweet_glider
+          environment-name: glider_of_the_day
           init-shell: bash
           create-args: >-
             python=${{ matrix.python-version }} --file conda-lock.yml --channel conda-forge
 
-      - name: Execute Notebook and Tweet
+      - name: Execute Notebook
         shell: bash -l {0}
         run: >
-          micromamba activate tweet_glider
+          micromamba activate glider_of_the_day
           && jupyter nbconvert --to notebook --execute gliders_of_the_day.ipynb --output=gliders_of_the_day-output.ipynb
 
       - name: Publish HTML

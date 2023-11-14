@@ -1,12 +1,10 @@
-name: tweet_glider
+name: glider_of_the_day
 channels:
   - conda-forge
 dependencies:
-  - python=3.11
+  - python=3.12
   - erddapy
   - folium
   - jupyter
   - pandas
-  - selenium
   - shapely
-  - tweepy
