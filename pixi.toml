@@ -1,0 +1,18 @@
+[project]
+authors = ["Filipe Fernandes <ocefpaf@gmail.com>"]
+channels = ["conda-forge"]
+description = "Create a map with the gliders of the day"
+name = "glideroftheday"
+platforms = ["linux-64"]
+version = "1.0.0"
+
+[tasks]
+map = "jupyter nbconvert --to notebook --execute gliders_of_the_day.ipynb --output=gliders_of_the_day-output.ipynb"
+
+[dependencies]
+erddapy = ">=2.2.3,<3"
+folium = ">=0.17.0,<0.18"
+nbclassic = ">=1.1.0,<2"
+pandas = ">=2.2.3,<3"
+shapely = ">=2.0.6,<3"
+python = "3.13.*"

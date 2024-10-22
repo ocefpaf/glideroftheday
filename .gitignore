@@ -3,3 +3,6 @@ geckodriver.log
 gliders_of_the_day-output.ipynb
 html
 images
+# pixi environments
+.pixi
+*.egg-info

@@ -16,19 +16,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Micromamba Python ${{ matrix.python-version }}
-        uses: mamba-org/setup-micromamba@v1
-        with:
-          environment-name: glider_of_the_day
-          init-shell: bash
-          create-args: >-
-            python=${{ matrix.python-version }} --file conda-lock.yml --channel conda-forge
-
-      - name: Execute Notebook
-        shell: bash -l {0}
-        run: >
-          micromamba activate glider_of_the_day
-          && jupyter nbconvert --to notebook --execute gliders_of_the_day.ipynb --output=gliders_of_the_day-output.ipynb
+      - uses: prefix-dev/setup-pixi@v0.8.1
+      - run: pixi run map
 
       - name: Publish HTML
         if: github.ref == 'refs/heads/main'
