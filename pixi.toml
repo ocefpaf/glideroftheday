@@ -1,4 +1,4 @@
-[project]
+[workspace]
 authors = ["Filipe Fernandes <ocefpaf@gmail.com>"]
 channels = ["conda-forge"]
 description = "Create a map with the gliders of the day"
